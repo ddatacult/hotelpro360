@@ -1,0 +1,36 @@
+//Reservation Process
+
+function bookReserve(l,r,lt,col) {
+//  Browser.msgBox('test', l+ r+ lt+ col,Browser.Buttons.OK)
+  var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Reservation");
+  var i;
+  for (var k = 1; k <l.length; k++) {
+    if (l[k] == r[0][3]) {
+      i = k+1;
+    }
+  }
+  var note = r[0][2] +" | "+ r[0][4]+" | "+r[0][5] 
+  ss.getRange(i, col, 1, lt).setBackground("green")
+                            .setNote(note)
+                            .setValue("R")
+                            .setFontColor("white");
+//                            .setVerticalAlignments("middle")
+}
+
+//Cancellation Process
+
+function cancelReserv_(bNum,col,lt) {
+//  var bNum = 204
+//  var lt = 5
+//  var col = 5
+  var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Reservation");
+  var records = ss.getRange("A:A").getValues();
+  var i;
+  for (var k = 0; k <records.length; k++) {
+    if (parseInt(records[k]) == bNum) {
+      i = k+1;
+    }
+  }
+  ss.getRange(i, col, 1,lt).setBackground(null)
+  ss.getRange(i, col, 1, lt).setNote(null)
+}
